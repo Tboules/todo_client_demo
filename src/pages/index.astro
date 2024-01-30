@@ -8,5 +8,16 @@ import Layout from '../layouts/Layout.astro';
       <label for="taskInput">Add a task:</label>
       <input type="text" id="taskInput" name="task" placeholder="Enter your tasks">
       <button type="button" onclick="addTask()">Add</button>
+      <ul id = "taskList" style="list-style-type:circle;">
+        <li>Task 1 <button type="button" onclick="deleteTask()">Delete</button></li>
+        <li>Task 2 <button type="button" onclick="deleteTask()">Delete</button></li>
+        <li>Task 3 <button type="button" onclick="deleteTask()">Delete</button></li>
+      </ul>
 	</main>
+
+  <script>
+    function addTask(){
+    var text = document.getElementById("taskInput");
+  }
+  </script>
 </Layout>
