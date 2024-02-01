@@ -2,22 +2,78 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Welcome to Astro.">
+<!-- This is the title of the website -->
+<Layout title="Todo List Application">
 	<main>
+    <!-- h1 is the header tag -->
     <h1>Todo App</h1>
+      <!-- the label tag is for text -->
       <label for="taskInput">Add a task:</label>
+
+      <!-- the id name is used in DOM manipulation -->
+      <!-- the input tag creates a textbox to allow user input -->
       <input type="text" id="taskInput" name="task" placeholder="Enter your tasks">
-      <button type="button" onclick="addTask()">Add</button>
-      <ul id = "taskList" style="list-style-type:circle;">
-        <li>Task 1 <button type="button" onclick="deleteTask()">Delete</button></li>
-        <li>Task 2 <button type="button" onclick="deleteTask()">Delete</button></li>
-        <li>Task 3 <button type="button" onclick="deleteTask()">Delete</button></li>
+      <!-- the button tag allows you to add a button -->
+      <button type="button" id="todoAddButton">Add</button>
+
+      <!-- the ul tag creates an unordered list  -->
+      <ul id = "taskList">
       </ul>
 	</main>
 
-  <script>
-    function addTask(){
-    var text = document.getElementById("taskInput");
-  }
-  </script>
 </Layout>
+ <script>
+  // Declare a variable with const or let
+  //   const: is a constant variable (cant be changed)
+  //   let: is not a constant varaible and can be reassigned
+
+import { addSyntheticTrailingComment } from "typescript";
+
+  // Here we are trying to do DOM manipulation, so lets set variables
+  //   to hold the elements that we want to be responsive
+  // addButton holds <button type="button" id="todoAddButton">Add</button>
+  const addButton = document.getElementById("todoAddButton");
+  // input holds <input type="text" id="taskInput" name="task" placeholder="Enter your tasks">
+  const input = document.querySelector("#taskInput") as HTMLInputElement
+  // todoList holds <ul id = "taskList">
+  const todoList = document.querySelector("#taskList") as HTMLInputElement
+
+  // In order to make the addButton work we have to put an event 
+  //  listener on it, specifically when we click
+  addButton?.addEventListener("click", function(){
+    // we add our addItem function here because we want it to run on the click of the add button 
+    // pass in the value that is in input (should be whatever task someone writes in the input)
+    addItem(input.value) 
+  })
+
+  // addItem function to make input string added to the todosList
+  function addItem(task: string){
+    // listItem creates the list
+    const listItem = document.createElement("li")
+    // deleteButton creates the button
+    const deleteButton = document.createElement("button")
+    // takes the passed in input and sets it equal to the inner element inside the list
+    listItem.innerHTML = task
+    // this adds the word Delete to the button
+    deleteButton.innerHTML = "Delete"
+
+    // takes the delete button and adds it to the end of the task
+    listItem.appendChild(deleteButton)
+    // takes the task and adds it to todoList, which holds the <ul>
+    todoList.appendChild(listItem)
+
+    // In order to make the deleteButton work we have to put an event 
+    // listener on it, specifically when we click
+    deleteButton.addEventListener("click", function(){
+      // on click, we want to remove the task and the button which is stored in listItem
+      listItem.remove()
+    })
+  } 
+ </script>
+
+  <style>
+    h1 { color: rgb(120, 120, 237); }
+    /* h1 { color: rgb(237, 120, 163); } */
+
+    
+  </style>
